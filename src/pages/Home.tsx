@@ -1,12 +1,16 @@
 import useAuthRedirect from '../hooks/useAuthRedirect';
+import Navbar from '../components/Navbar';
 
 const Home = () => {
     useAuthRedirect();
 
     return (
-        <div className="container mt-5">
-            <h1>Home Page</h1>
-            <p>Welcome to your dashboard!</p>
+        <div>
+            <Navbar />
+            <div className="container mt-4">
+                <h1>Welcome to your Dashboard</h1>
+                <p>Create and manage your business canvases.</p>
+            </div>
         </div>
     );
 };

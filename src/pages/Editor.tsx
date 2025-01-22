@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:4002869542.
+import yaml from "js-yaml";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js"; // Ensure dropdowns work
+import { saveAs } from "file-saver";
+import EditorNavbar from "../components/EditorNavbar";
 import "./Editor.css";
-import "bootstrap-icons/font/bootstrap-icons.css"; // Include Bootstrap Icons
 
 const Editor: React.FC = () => {
   const { id } = useParams();
@@ -52,9 +55,13 @@ const Editor: React.FC = () => {
 
   const handleSave = async () => {
     try {
-      if (!id) return;
+      if (!id) {
+        alert("Invalid ID. Cannot save.");
+        return;
+      }
+
       const docRef = doc(db, "businessModels", id);
-      await updateDoc(docRef, businessModel);
+      await updateDoc(docRef, { ...businessModel });
       alert("Business model saved successfully!");
     } catch (error) {
       console.error("Error saving business model:", error);
@@ -62,26 +69,35 @@ const Editor: React.FC = () => {
     }
   };
 
+  const handleLoad = async (file: File) => {
+    try {
+      const text = await file.text();
+      const data = yaml.load(text);
+      if (typeof data === "object") {
+        setBusinessModel({ ...(data as typeof businessModel) });
+        alert("YAML loaded successfully!");
+      } else {
+        throw new Error("Invalid YAML structure");
+      }
+    } catch (error) {
+      console.error("Error loading YAML:", error);
+      alert("Failed to load YAML.");
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
 
   return (
     <div>
-      <header>
-        <h2>Business Model Canvas</h2>
-        <div className="business-name-label">
-          <strong>Name:</strong>
-          <input
-            type="text"
-            value={businessModel.businessName}
-            onChange={(e) =>
-              setBusinessModel({ ...businessModel, businessName: e.target.value })
-            }
-          />
-        </div>
-        <button className="btn btn-success" onClick={handleSave}>
-          Save
-        </button>
-      </header>
+      <EditorNavbar
+        businessName={businessModel.businessName}
+        setBusinessName={(name) =>
+          setBusinessModel({ ...businessModel, businessName: name })
+        }
+        businessModel={businessModel}
+        onSave={handleSave}
+        onLoad={handleLoad}
+      />
 
       <div className="canvas-container">
         <div id="key-partnerships" className="canvas-section">

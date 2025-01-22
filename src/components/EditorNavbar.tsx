@@ -1,6 +1,7 @@
 import React from "react";
 import { saveAs } from "file-saver";
 import yaml from "js-yaml";
+import { useNavigate } from "react-router-dom";
 
 const EditorNavbar: React.FC<{
   businessName: string;
@@ -9,6 +10,8 @@ const EditorNavbar: React.FC<{
   onLoad: (file: File) => void;
   businessModel: any;
 }> = ({ businessName, setBusinessName, onSave, onLoad, businessModel }) => {
+  const navigate = useNavigate();
+
   const handleExport = () => {
     try {
       const yamlData = yaml.dump(businessModel);
@@ -29,7 +32,11 @@ const EditorNavbar: React.FC<{
     <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
       <div className="container-fluid">
         {/* Home Link */}
-        <a className="navbar-brand text-primary fw-bold" style={{ cursor: "pointer" }}>
+        <a
+          className="navbar-brand text-primary fw-bold"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/home")}
+        >
           Home
         </a>
         <div className="d-flex align-items-center">
@@ -75,6 +82,16 @@ const EditorNavbar: React.FC<{
               </li>
             </ul>
           </div>
+
+          {/* Hypothesis Button */}
+          <button
+            className="btn btn-primary ms-3"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasSidebar"
+            aria-controls="offcanvasSidebar"
+          >
+            Hypothesis
+          </button>
         </div>
       </div>
     </nav>

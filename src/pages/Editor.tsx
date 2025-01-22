@@ -7,6 +7,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js"; // Ensure dropdowns work
 import { saveAs } from "file-saver";
 import EditorNavbar from "../components/EditorNavbar";
+import HypothesisOffcanvas from "../components/HypothesisOffcanvas";
 import "./Editor.css";
 
 const Editor: React.FC = () => {
@@ -97,6 +98,17 @@ const Editor: React.FC = () => {
         businessModel={businessModel}
         onSave={handleSave}
         onLoad={handleLoad}
+      />
+
+      <HypothesisOffcanvas
+        businessHypothesis={businessModel.businessHypothesis}
+        keyAssumptions={businessModel.keyAssumptions}
+        setBusinessHypothesis={(value) =>
+          setBusinessModel({ ...businessModel, businessHypothesis: value })
+        }
+        setKeyAssumptions={(value) =>
+          setBusinessModel({ ...businessModel, keyAssumptions: value })
+        }
       />
 
       <div className="canvas-container">

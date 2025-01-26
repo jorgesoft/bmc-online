@@ -3,9 +3,10 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* Five equal-width columns */
     grid-template-rows: auto auto auto; /* Automatically adjust row heights */
     gap: 0px; /* Space between grid items */
-    height: calc(100vh - 100px); /* Full height minus the header */
+    height: 100vh; /* Full height minus the header */
     box-sizing: border-box;
     background-color: #ffffff;
+    border: 1px solid #000;
 }
 
 .canvas-section {
@@ -16,7 +17,6 @@
     background: #f9f9f9; /* Subtle background color for differentiation */
     height: 100%;
     box-sizing: border-box;
-    border: 1px solid #000;
 }
 
 .canvas-title {

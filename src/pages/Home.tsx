@@ -58,6 +58,14 @@ const Home: React.FC = () => {
     }
   };
 
+  const handleCreateNew = () => {
+    if (businessModels.length >= 5) {
+      alert("You can only create up to 5 canvases.");
+      return;
+    }
+    navigate("/create");
+  };
+
   useEffect(() => {
     if (!auth.currentUser) {
       navigate("/"); // Redirect to landing page if unauthenticated
@@ -73,7 +81,7 @@ const Home: React.FC = () => {
         <h2>Your Business Models</h2>
         <button
           className="btn btn-primary mb-3"
-          onClick={() => navigate("/create")}
+          onClick={handleCreateNew} // Call the new function to check limit
         >
           Create New Business
         </button>
@@ -105,7 +113,7 @@ const Home: React.FC = () => {
                     <td
                       className="text-truncate"
                       style={{ maxWidth: "300px" }}
-                      title={business.businessHypothesis || "No hypothesis provided."} // Tooltip for full text
+                      title={business.businessHypothesis || "No hypothesis provided."}
                     >
                       {business.businessHypothesis || "No hypothesis provided."}
                     </td>

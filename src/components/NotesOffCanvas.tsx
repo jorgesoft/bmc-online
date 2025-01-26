@@ -10,7 +10,6 @@ onSave: () => void; // Function to trigger saving to Firebase
 const NotesOffcanvas: React.FC<NotesOffcanvasProps> = ({
   notes,
   setNotes,
-  onSave,
 }) => {
   return (
     <div

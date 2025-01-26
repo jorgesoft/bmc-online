@@ -143,3 +143,23 @@ body.dark-mode textarea {
     color: #333; /* Match the text color */
 }
 
+
+/* Mobile Layout: Stacked Sections */
+@media (max-width: 768px) {
+    .canvas-container {
+        display: flex;
+        flex-direction: column; /* Switch to vertical layout */
+        padding: 10px;
+        gap: 20px; /* Larger spacing between sections */
+        height: 2000px; /* Allow height to adjust */
+    }
+
+    .canvas-section {
+        width: 100%; /* Ensure sections take full width */
+    }
+
+    .canvas-title {
+        font-size: 1.2rem; /* Larger titles for better readability */
+    }
+
+}

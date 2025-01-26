@@ -5,9 +5,9 @@ import { db } from "../firebase/firebaseConfig";
 import yaml from "js-yaml";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js"; // Ensure dropdowns work
-import { saveAs } from "file-saver";
 import EditorNavbar from "../components/EditorNavbar";
 import HypothesisOffcanvas from "../components/HypothesisOffcanvas";
+import NotesOffCanvas from "../components/NotesOffCanvas";
 import "./Editor.css";
 
 const Editor: React.FC = () => {
@@ -27,6 +27,7 @@ const Editor: React.FC = () => {
     revenueStreams: "",
     businessHypothesis: "",
     keyAssumptions: "",
+    notes: "",
   });
   const [loading, setLoading] = useState(true);
 
@@ -109,6 +110,12 @@ const Editor: React.FC = () => {
         setKeyAssumptions={(value) =>
           setBusinessModel({ ...businessModel, keyAssumptions: value })
         }
+      />
+
+      <NotesOffCanvas
+        notes={businessModel.notes}
+        setNotes={(value) => setBusinessModel({ ...businessModel, notes: value })}
+        onSave={handleSave}
       />
 
       <div className="canvas-container">

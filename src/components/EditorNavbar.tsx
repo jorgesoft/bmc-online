@@ -92,6 +92,17 @@ const EditorNavbar: React.FC<{
           >
             Hypothesis
           </button>
+          
+          <button 
+            type="button" 
+            className="btn btn-primary ms-3" 
+            data-bs-toggle="offcanvas" 
+            data-bs-target="#offcanvasNotes" 
+            aria-controls="offcanvasNotes"
+          >
+            Notes
+          </button>
+
         </div>
       </div>
     </nav>

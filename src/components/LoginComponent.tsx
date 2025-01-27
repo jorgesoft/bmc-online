@@ -8,13 +8,17 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 
-const LoginComponent = ({ onError }) => {
-  const [activeTab, setActiveTab] = useState("login");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [resetEmail, setResetEmail] = useState("");
-  const [showReset, setShowReset] = useState(false);
-  const [resetMessage, setResetMessage] = useState("");
+interface LoginComponentProps {
+  onError: (message: string) => void; // Type for the onError callback
+}
+
+const LoginComponent: React.FC<LoginComponentProps> = ({ onError }) => {
+  const [activeTab, setActiveTab] = useState<"login" | "register">("login");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [resetEmail, setResetEmail] = useState<string>("");
+  const [showReset, setShowReset] = useState<boolean>(false);
+  const [resetMessage, setResetMessage] = useState<string>("");
 
   const handleGoogleSignIn = async () => {
     try {
@@ -26,7 +30,7 @@ const LoginComponent = ({ onError }) => {
     }
   };
 
-  const handleAuth = async (e) => {
+  const handleAuth = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       if (activeTab === "login") {
@@ -44,7 +48,7 @@ const LoginComponent = ({ onError }) => {
     }
   };
 
-  const handlePasswordReset = async (e) => {
+  const handlePasswordReset = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await sendPasswordResetEmail(auth, resetEmail);
